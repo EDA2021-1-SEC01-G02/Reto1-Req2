@@ -28,6 +28,10 @@
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import insertionsort as ins
+from DISClib.Algorithms.Sorting import mergesort as me
+from DISClib.Algorithms.Sorting import quicksort as qu
 assert cf
 
 """
@@ -36,8 +40,17 @@ los mismos.
 """
 
 # Construccion de modelos
+def newCatalog():
 
+    catalog = {
+        "artworks" : None,
+    }
+    catalog['artworks'] =  lt.newList(type, None)
+
+    return catalog
 # Funciones para agregar informacion al catalogo
+def addArtWork(catalog, artwork):
+    lt.addLast(catalog['artworks'], artwork)
 
 # Funciones para creacion de datos
 
@@ -45,4 +58,36 @@ los mismos.
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
+def cmpArtworkByDateAdquired(artwork1,artwork2):
+    date1 = artwork1["DateAcquired"].split("-")
+    date2 = artwork2["DateAcquired"].split("-")
+    if len(date1)!= 3:
+        return True
+    if len(date2) != 3:
+        return False
+
+    if int(date1[0]) < int(date2[0]):
+        return True
+    elif int( date1[0]) == int(date2[0]):
+        if date1[1] < date2[1]:
+            return True
+        elif int(date1[1]) == int(date2[1]):
+            if int(date1[2]) < int(date2[2]):
+                return True  
+    else:
+        return False
+
+
+
 # Funciones de ordenamiento
+def sortByDate(lst, sortType):
+    
+    if sortType == 1:
+        ins.sort(lst, cmpArtworkByDateAdquired)
+    elif sortType == 2:
+        sa.sort(lst,cmpArtworkByDateAdquired)
+    elif sortType == 3:
+        me.sort(lst,cmpArtworkByDateAdquired)
+    elif sortType == 4:
+        qu.sort(lst,cmpArtworkByDateAdquired)
+    

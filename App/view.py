@@ -37,10 +37,13 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Elegir el tipo de ordenamiento.")
+    print('3- Ejecutar el ordenamiento sobre una muestra dada.')
 
 catalog = None
-
+muestra = 0
+lstMuestra = None
+sortType = None
 """
 Menu principal
 """
@@ -49,10 +52,45 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        print('Elija el tipo de lista: ')
 
+        print('1. SINGLE_LINKED')
+        print('2. ARRAY_LIST')
+
+        type = int(input())
+        if type == 2:
+            type = 'ARRAY_LIST'
+        elif type == 1:
+            type = 'SINGLE LINKED'
+
+        catalog = controller.initCatalog(type)
+        controller.loadData(catalog)
+        a = catalog['artworks']
+        
+        size = lt.size(catalog['artworks'])
+        cent = True
+        while cent == True:
+            muestra = int(input('Ingrese el tamaño de la muestra: '))
+            if muestra <= size:
+                cent =  False
+        
+        lstMuestra = lt.subList(catalog['artworks'],1, muestra)
+ 
     elif int(inputs[0]) == 2:
-        pass
+        print("Elija que tipo de ordenamiento desea: ")
+        print("1- InsertionSort")
+        print("2- Shell")
+        print("3- Merge ")
+        print("4- Quick")
+        sortType = int(input(''))
 
+        
+
+    elif int(inputs[0]) == 3:
+
+        controller.sortByDate(lstMuestra,sortType)
+        for i in range(1, lt.size(lstMuestra)+1):
+            print ('\n', lt.getElement(lstMuestra,i))
     else:
         sys.exit(0)
 sys.exit(0)
