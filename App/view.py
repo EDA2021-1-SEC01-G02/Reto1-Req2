@@ -68,6 +68,7 @@ while True:
         controller.loadData(catalog)
         a = catalog['artworks']
         
+        
         size = lt.size(catalog['artworks'])
         cent = True
         while cent == True:
@@ -90,8 +91,6 @@ while True:
     elif int(inputs[0]) == 3:
         start_time = time.process_time()
         controller.sortByDate(lstMuestra,sortType)
-        for i in range(1, lt.size(lstMuestra)+1):
-            print ('\n', lt.getElement(lstMuestra,i))
         stop_time = time.process_time()
         elapsed_time_mseg = (stop_time - start_time)*1000
         print(elapsed_time_mseg)
